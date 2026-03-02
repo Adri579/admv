@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+
+/* ===== TU CSS ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(#021c4b, #fcfcfc);
+    font-family: 'Georgia', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.book {
+    width: 95%;
+    max-width: 780px;
+    min-height: 90vh;
+    background: #fffaf3a1;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    text-align: center;
+    width: 100%;
+}
+
+h1 {
+    color: #054db9;
+}
+
+input {
+    width: 80%;
+    max-width: 350px;
+    padding: 12px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    background: #0096b1;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #8a0000;
+}
+
+#error {
+    color: #8a0000;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.pista-btn{
+    background:#054db9;
+    margin-top:10px;
+}
+
+.pista-btn:hover{
+    background:#021c4b;
+}
+
+.pista-texto{
+    margin-top:15px;
+    color:#054db9;
+    font-style: italic;
+    display:none;
+}
+/* ===== TRANSICIÓN LIBRO ===== */
+
+.book.cerrar {
+    animation: cerrarLibro 0.9s forwards;
+}
+
+@keyframes cerrarLibro {
+    0% {
+        transform: scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.95) rotateY(15deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0.8) rotateY(90deg);
+        opacity: 0;
+    }
+
+    
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="book">
+    <div class="page fade">
+
+        <h1 class="titulo">Hola mi vida hermosa</h1>
+
+        <h2>Por favor inicia sesión</h2>
+
+        <input type="text" id="usuario" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+
+        <button onclick="login()">Entrar</button>
+
+<button onclick="mostrarPista()" class="pista-btn">Pista 💡</button>
+
+<p id="pista" class="pista-texto"></p>
+
+<p id="error"></p>
+        
+
+        <p id="error"></p>
+
+    </div>
+</div>
+
+<script>
+
+// ===== LOGIN =====
+function login(){
+
+    const usuarioCorrecto = "Eclipse";
+    const passwordCorrecta = "30112021";
+
+    const usuario = document.getElementById("usuario").value;
+    const password = document.getElementById("password").value;
+
+    if(usuario === usuarioCorrecto && password === passwordCorrecta){
+
+        localStorage.setItem("login","ok");
+
+        // animación libro
+        const libro = document.querySelector(".book");
+        libro.classList.add("cerrar");
+
+        // esperar animación antes de cambiar página
+        setTimeout(()=>{
+            window.location.href = "index.html";
+        }, 900);
+
+    }else{
+        document.getElementById("error").textContent =
+        "Usuario o contraseña incorrectos";
+    }
+}
+
+
+// ===== BOTÓN PISTA =====
+function mostrarPista(){
+
+    const pista = document.getElementById("pista");
+
+    if(pista.style.display === "none" || pista.style.display === ""){
+        pista.style.display = "block";
+        pista.textContent = "💡 Pista: el nombre de usuario es una palabra que siempre a representado nuestra relación ☀️🌙 (primera letra en mayuscula el resto minuscula) ,y la contraseña es la fecha en la que nos cuadramos , toda junta sin espacio (dia-mes-año) 😉";
+    }else{
+        pista.style.display = "none";
+    }
+}
+
+</script>
+
+</body>
+</html>
